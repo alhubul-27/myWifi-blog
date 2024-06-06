@@ -9,6 +9,7 @@ if (isset($_POST['submit'])) {
     $idArea = $_POST['id_area'];
     $pilihPaket = $_POST['pilihPaket'];
     var_dump($idArea);
+    var_dump($idArea);
     
     // Fetch id_layanan based on the selected package
     $query = "SELECT id_layanan FROM layanan WHERE deskripsi = ?";
