@@ -92,7 +92,7 @@ if ($query->num_rows > 0) {
                     <span>Riwayat Transaksi</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="status-layanan.php">
                     <i class="bi bi-chat-left-dots"></i>
                     <span>Status Layanan</span></a>
             </li>
@@ -166,108 +166,151 @@ if ($query->num_rows > 0) {
                                     Data Layanan
                                 </div>
                                 <div class="card-body">
-                                    <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#addAreaLayanan">
+                                    <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#addLayanan">
                                         <i class="bi bi-plus-circle"></i> Tambah Layanan
                                     </button>
-                                    <table class="table table-dark table-striped-columns">
-                                        <thead class="table-dark fs-6">
-                                            <tr>
-                                                <th scope="col">No</th>
-                                                <th scope="col">Nama Layanan</th>
-                                                <th scope="col">Deskripsi</th>
-                                                <th scope="col">Harga</th>
-                                                <td scope="col">Aksi</td>
-                                        </thead>
-                                        <tbody class="fs-6">
-                                            <?php
-                                            $i = 1;
-                                            foreach ($datas as $data) : ?>
-                                                <tr>
-                                                    <td scope="col"><?= $i++ ?></td>
-                                                    <td scope="col"><?= $data['nama_layanan'] ?></td>
-                                                    <td scope="col"><?= $data['deskripsi'] ?></td>
-                                                    <td scope="col"><?= "Rp" . number_format($data['harga'], 0, ',', '.'); ?></td>
-                                                    <td>
-                                                        <a href="" class="text-decoration-none btn btn-primary btn-sm m-1" data-toggle="modal" data-target="#EditModal<?= $data['id_layanan']; ?>">
-                                                            <i class="bi bi-pencil-square"></i>
-                                                        </a>
-                                                        <a href="" class="text-decoration-none btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal<?= $data['id_layanan']; ?>">
-                                                            <i class="bi bi-trash3"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                <div class="modal fade" id="EditModal<?= $data['id_layanan']; ?>" tabindex="-1" aria-labelledby="EditModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Edit Layanan</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <form action="function.php" method="post">
-                                                                    <div class="col-12">
-                                                                        <label for="nama_layanan" class="form-label">Nama Layanan</label>
-                                                                        <input type="text" class="form-control" name="nama_layanan" id="nama_layanan" value="<?= $data['nama_layanan']; ?>" required>
-                                                                    </div>
-                                                                    <div class="col-12 mt-3">
-                                                                        <label for="deskripsi" class="form-label">Deskripsi</label>
-                                                                        <input type="text" class="form-control" name="deskripsi" id="deskripsi" value="<?= $data['deskripsi']; ?>" required>
-                                                                    </div>
-                                                                    <div class="col-12 mt-3">
-                                                                        <label for="harga" class="form-label">Harga</label>
-                                                                        <input type="number" class="form-control" name="harga" id="harga" value="<?= $data['harga']; ?>" required>
-                                                                        <input type="hidden" name="id_layanan" value="<?= $data['id_layanan']; ?>">
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                                                        <button type="submit" class="btn btn-primary" name="editAreaLayanan">Edit</button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="modal fade" id="deleteModal<?= $data['id_layanan']; ?>" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Hapus Layanan</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                Apakah Anda yakin ingin menghapus?
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <form action="function.php?id=<?= $data['id_layanan']; ?>" method="post">
-                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                                                                    <button type="submit" class="btn btn-danger" name="deleteAreaLayanan">Hapus</button>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            <?php endforeach; ?>
-                                        </tbody>
-                                    </table>
                                     <form action="function.php" method="post">
-                                        <h3>Multi Update</h3>
-                                        <label for="update_prices">Tambahkan 10% ke Harga:</label><br>
-                                        <input type="checkbox" id="update_prices" name="update_prices[]" value="1"> Layanan 1<br>
-                                        <input type="checkbox" id="update_prices" name="update_prices[]" value="3"> Layanan 3<br>
-                                        <input type="checkbox" id="update_prices" name="update_prices[]" value="5"> Layanan 5<br>
-                                        <br>
-                                        <h3>Multi Delete</h3>
-                                        <label for="delete_services">Hapus Layanan:</label><br>
-                                        <input type="checkbox" id="delete_services" name="delete_services[]" value="2"> Layanan 2<br>
-                                        <input type="checkbox" id="delete_services" name="delete_services[]" value="4"> Layanan 4<br>
-                                        <input type="checkbox" id="delete_services" name="delete_services[]" value="6"> Layanan 6<br>
-                                        <br>
-                                        <input type="submit" value="Submit">
+                                        <table class="table table-dark table-striped-columns">
+                                            <thead class="table-dark fs-6">
+                                                <tr>
+                                                    <th scope="col"><input type="checkbox" id="checkAll"></th>
+                                                    <th scope="col">No</th>
+                                                    <th scope="col">Nama Layanan</th>
+                                                    <th scope="col">Deskripsi</th>
+                                                    <th scope="col">Harga</th>
+                                                    <td scope="col">Aksi</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="fs-6">
+                                                <?php
+                                                $i = 1;
+                                                foreach ($datas as $data) : ?>
+                                                    <tr>
+                                                        <td scope="col"><input type="checkbox" class="itemCheckbox" name="id[]" value="<?= $data['id_layanan'] ?>"></td>
+                                                        <td scope="col"><?= $i++ ?></td>
+                                                        <td scope="col"><?= $data['nama_layanan'] ?></td>
+                                                        <td scope="col"><?= $data['deskripsi'] ?></td>
+                                                        <td scope="col"><?= "Rp" . number_format($data['harga'], 0, ',', '.'); ?></td>
+                                                        <td>
+                                                            <a href="" class="text-decoration-none btn btn-primary btn-sm m-1" data-toggle="modal" data-target="#EditModal<?= $data['id_layanan']; ?>">
+                                                                <i class="bi bi-pencil-square"></i>
+                                                            </a>
+                                                            <a href="" class="text-decoration-none btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal<?= $data['id_layanan']; ?>">
+                                                                <i class="bi bi-trash3"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <div class="modal fade" id="EditModal<?= $data['id_layanan']; ?>" tabindex="-1" aria-labelledby="EditModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Edit Layanan</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form action="function.php" method="post">
+                                                                        <div class="col-12">
+                                                                            <label for="nama_layanan" class="form-label">Nama Layanan</label>
+                                                                            <input type="text" class="form-control" name="nama_layanan" id="nama_layanan" value="<?= $data['nama_layanan']; ?>" required>
+                                                                        </div>
+                                                                        <div class="col-12 mt-3">
+                                                                            <label for="deskripsi" class="form-label">Deskripsi</label>
+                                                                            <input type="text" class="form-control" name="deskripsi" id="deskripsi" value="<?= $data['deskripsi']; ?>" required>
+                                                                        </div>
+                                                                        <div class="col-12 mt-3">
+                                                                            <label for="harga" class="form-label">Harga</label>
+                                                                            <input type="number" class="form-control" name="harga" id="harga" value="<?= $data['harga']; ?>" required>
+                                                                            <input type="hidden" name="id_layanan" value="<?= $data['id_layanan']; ?>">
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                                            <button type="submit" class="btn btn-primary" name="editLayanan">Edit</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="modal fade" id="deleteModal<?= $data['id_layanan']; ?>" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Hapus Layanan</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    Apakah Anda yakin ingin menghapus?
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <form action="function.php?id=<?= $data['id_layanan']; ?>" method="post">
+                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                                                        <button type="submit" class="btn btn-danger" name="deleteLayanan">Hapus</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteSelected">Update Selected</button>
+
+                                        <div class="modal fade" id="deleteSelected" tabindex="-1" aria-labelledby="deleteSelectedLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="deleteSelectedLabel">Delete Selected</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="col-12">
+                                                            Apakah Anda yakin ingin menghapus?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                            <button type="submit" class="btn btn-danger" name="multiDeleted">Hapus</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#updateDiscountModal">Update Selected</button>
+
+                                        <div class="modal fade" id="updateDiscountModal" tabindex="-1" aria-labelledby="updateDiscountModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="updateDiscountModalLabel">Update Diskon</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="col-12">
+                                                            <label for="discount" class="form-label">Diskon</label>
+                                                            <select class="form-control" name="discount" id="discount" required>
+                                                                <option value="5">5%</option>
+                                                                <option value="10">10%</option>
+                                                                <option value="15">15%</option>
+                                                                <option value="20">20%</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                            <button type="submit" class="btn btn-primary" name="multiUpdated">Update</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -277,11 +320,11 @@ if ($query->num_rows > 0) {
             </div>
             <!-- End of Main Content -->
 
-            <div class="modal fade" id="addAreaLayanan" tabindex="-1" aria-labelledby="addAreaLayananLabel" aria-hidden="true">
+            <div class="modal fade" id="addLayanan" tabindex="-1" aria-labelledby="addLayananLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="addAreaLayanan">Tambah Area Layanan</h5>
+                            <h5 class="modal-title" id="addLayanan">Tambah Layanan</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -289,20 +332,20 @@ if ($query->num_rows > 0) {
                         <div class="modal-body">
                             <form action="function.php" method="post">
                                 <div class="col-12">
-                                    <label for="kota" class="form-label">Kota</label>
-                                    <input type="text" class="form-control" name="kota" id="kota" required>
+                                    <label for="nama_layanan" class="form-label">Nama Layanan</label>
+                                    <input type="text" class="form-control" name="nama_layanan" id="nama_layanan" required>
                                 </div>
                                 <div class="col-12 mt-3">
-                                    <label for="provinsi" class="form-label">Provinsi</label>
-                                    <input type="text" class="form-control" name="provinsi" id="provinsi" required>
+                                    <label for="deskripsi" class="form-label">Deskripsi</label>
+                                    <input type="text" class="form-control" name="deskripsi" id="deskripsi" required>
                                 </div>
                                 <div class="col-12 mt-3">
-                                    <label for="kode_pos" class="form-label">Kode Pos</label>
-                                    <input type="number" class="form-control" name="kode_pos" id="kode_pos" required>
+                                    <label for="harga" class="form-label">harga</label>
+                                    <input type="number" class="form-control" name="harga" id="harga" required>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                    <button type="submit" class="btn btn-primary" name="addAreaLayanan">Tambah</button>
+                                    <button type="submit" class="btn btn-primary" name="addLayanan">Tambah</button>
                                 </div>
                             </form>
                         </div>
@@ -358,6 +401,14 @@ if ($query->num_rows > 0) {
 
         <!-- Custom scripts for all pages-->
         <script src="js/sb-admin-2.min.js"></script>
+        <script>
+            document.getElementById('checkAll').addEventListener('change', function() {
+                var checkboxes = document.getElementsByClassName('itemCheckbox');
+                for (var i = 0; i < checkboxes.length; i++) {
+                    checkboxes[i].checked = this.checked;
+                }
+            });
+        </script>
 </body>
 
 </html>

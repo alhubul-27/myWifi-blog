@@ -7,11 +7,8 @@ if (!isset($_SESSION['data'])) {
 }
 
 include "../koneksi/koneksi.php";
-$sql = "SELECT * FROM payment 
-JOIN pesanan ON payment.id_pesanan = pesanan.id_pesanan
-JOIN area_layanan ON pesanan.id_area = area_layanan.id_area
-JOIN layanan ON pesanan.id_layanan = layanan.id_layanan
-JOIN register ON pesanan.id_user = register.id_user";
+$sql = "SELECT * FROM status_layanan 
+JOIN register ON status_layanan.id_user = register.id_user";
 $query = $koneksi->query($sql);
 $datas = [];
 
@@ -33,7 +30,7 @@ if ($query->num_rows > 0) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Data Riwayat Transaksi</title>
+    <title>Data Ulasan</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -160,28 +157,25 @@ if ($query->num_rows > 0) {
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Riwayat Transaksi</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Ulasan</h1>
                     </div>
                     <main>
                         <div class="container-fluid px-4 mt-4">
                             <div class="card mb-4">
                                 <div class="card-header">
                                     <i class="fas fa-table me-1"></i>
-                                    Data Riwayat Transaksi
+                                    Data Ulasan
                                 </div>
                                 <div class="card-body">
                                     <table class="table table-dark table-striped-columns">
                                         <thead class="table-dark fs-6">
                                             <tr>
                                                 <th scope="col">No</th>
-                                                <th scope="col">Nama Lengkap</th>
-                                                <th scope="col">Nama Layanan</th>
+                                                <th scope="col">Nama Pelanggan</th>
+                                                <th scope="col">Kendala</th>
                                                 <th scope="col">Deskripsi</th>
-                                                <th scope="col">Kota</th>
-                                                <th scope="col">Provinsi</th>
-                                                <th scope="col">Tanggal Pembayaran</th>
-                                                <th scope="col">Jumlah</th>
-                                                <th scope="col">Status</th>
+                                                <th scope="col">Gambar</th>
+                                                <th scope="col">Tanggal Pengaduan</th>
                                                 <th scope="col">Aksi</th>
                                         </thead>
                                         <tbody class="fs-6">
@@ -191,20 +185,20 @@ if ($query->num_rows > 0) {
                                                 <tr>
                                                     <td scope="col"><?= $i++ ?></td>
                                                     <td scope="col"><?= $data['nm_lengkap'] ?></td>
-                                                    <td scope="col"><?= $data['nama_layanan'] ?></td>
+                                                    <td scope="col"><?= $data['kendala'] ?></td>
                                                     <td scope="col"><?= $data['deskripsi'] ?></td>
-                                                    <td scope="col"><?= $data['kota'] ?></td>
-                                                    <td scope="col"><?= $data['provinsi'] ?></td>
-                                                    <td scope="col"><?= $data['tanggal_pembayaran'] ?></td>
-                                                    <td scope="col"><?= "Rp" . number_format($data['jumlah'], 0, ',', '.'); ?></td>
-                                                    <td scope="col"><?= $data['status'] ?></td>
+                                                    <form action="function.php" method="post">
+                                                        <input type="hidden" name="gambar" value="<?= $data['gambar'] ?>">
+                                                        <td scope="col"><button type="submit" name="download" class="btn btn-warning">Download</button></td>
+                                                    </form> 
+                                                    <td scope="col"><?= $data['tanggal'] ?></td>
                                                     <td>
-                                                        <a href="" class="text-decoration-none btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal<?= $data['id_pembayaran']; ?>">
+                                                        <a href="" class="text-decoration-none btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal<?= $data['id_status_layanan']; ?>">
                                                             <i class="bi bi-trash3"></i>
                                                         </a>
                                                     </td>
 
-                                                    <div class="modal fade" id="deleteModal<?= $data['id_pembayaran']; ?>" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                                    <div class="modal fade" id="deleteModal<?= $data['id_status_layanan']; ?>" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
@@ -217,9 +211,11 @@ if ($query->num_rows > 0) {
                                                                     Apakah Anda yakin ingin menghapus?
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <form action="function.php?id=<?= $data['id_pembayaran']; ?>" method="post">
+                                                                    <form action="function.php" method="post">
+                                                                        <input type="hidden" name="gambar" value="<?= $data['gambar'] ?>">
+                                                                        <input type="hidden" name="id" value="<?= $data['id_status_layanan'] ?>">
                                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                                                                        <button type="submit" class="btn btn-danger" name="deleteRiwayatTransaksi">Hapus</button>
+                                                                        <button type="submit" class="btn btn-danger" name="deleteStatusLayanan">Hapus</button>
                                                                     </form>
                                                                 </div>
                                                             </div>
