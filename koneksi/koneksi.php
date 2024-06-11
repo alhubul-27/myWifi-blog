@@ -1,7 +1,7 @@
 <?php
 $host = "localhost";
 $username = "root";
-$password = "";
+$password = "asdfg1922";
 $database = "mywifi";
 $koneksi = mysqli_connect($host, $username, $password, $database);
 ?>

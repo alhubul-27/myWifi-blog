@@ -26,9 +26,11 @@
             margin: 20px;
             background-color: #f9f9f9;
         }
+
         h2 {
             color: #333;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -36,16 +38,21 @@
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        th, td {
+
+        th,
+        td {
             padding: 15px;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
+
         th {
             background-color: #ffc800;
             color: white;
         }
-        select, textarea {
+
+        select,
+        textarea {
             width: 100%;
             padding: 10px;
             margin: 5px 0;
@@ -54,10 +61,12 @@
             border-radius: 4px;
             box-sizing: border-box;
         }
+
         textarea {
             height: 150px;
             resize: vertical;
         }
+
         button {
             background-color: #ffc800;
             color: white;
@@ -68,6 +77,7 @@
             cursor: pointer;
             font-size: 16px;
         }
+
         button:hover {
             background-color: #ffc800;
         }
@@ -266,28 +276,24 @@
                 <h2 class="section-heading text-uppercase">Layanan</h2>
                 <h3 class="section-subheading text-muted">Platfrom untuk pengguna melakukan pengaduan komplain</h3>
                 <div class="row text-center">
-                    <form method="POST" enctype="multipart/form-data" action="upload.php">
+                    <form method="POST" enctype="multipart/form-data" action="aksi_home.php">
                         <div class="col-md-6 offset-md-3">
-                            <a target="_blank" href="https://getform.io?ref=codepenHTML">
-                            </a>
                             <br>
-                            <form accept-charset="UTF-8" action="https://getform.io/f/{your-form-endpoint-goes-here}" method="POST" enctype="multipart/form-data" target="_blank">
-                                <div class="mb-3">
-                                    <label for="exampleInputkedala" class="form-label">Kendala</label>
-                                    <input type="text" name="fullname" class="form-control" id="kendala" placeholder="Ex : Wifi Trouble" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleInputdeskripsi" class="form-label">Deskripsi</label>
-                                    <textarea name="deskripsi" id="exampleInputEmail1" class="form-control" placeholder="Ex : Wifi Bla bla" required></textarea>
-                                </div>
-                                <hr>
-                                <div class="mb-3 mt-3">
-                                    <label class="form-label">Unggah Foto Kendala:</label>
-                                    <input type="file" name="file" class="form-control">
-                                </div>
-                                <hr>
-                                <button type="submit" class="btn btn-primary">Kirim</button>
-                            </form>
+                            <div class="mb-3">
+                                <label for="kendala" class="form-label">Kendala</label>
+                                <input type="text" name="kendala" class="form-control" id="kendala" placeholder="Ex : Wifi Trouble" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="deskripsi" class="form-label">Deskripsi</label>
+                                <textarea name="deskripsi" id="deskripsi" class="form-control" placeholder="Ex : Wifi Bla bla" required></textarea>
+                            </div>
+                            <hr>
+                            <div class="mb-3 mt-3">
+                                <label class="form-label">Unggah Foto Kendala:</label>
+                                <input type="file" name="image" class="form-control" required>
+                            </div>
+                            <hr>
+                            <button type="submit" class="btn btn-primary" name="upload">Kirim</button>
                         </div>
                     </form>
                 </div>
@@ -301,38 +307,40 @@
                 <h3 class="section-subheading text-muted">Kita sangat mengapresiasi tanggapan dari kalian</h3>
             </div>
             <div class="row">
-            <!DOCTYPE html>
-<html lang="id">
-<body>
+                <!DOCTYPE html>
+                <html lang="id">
 
-<h2>Form Ulasan My WiFi</h2>
-<form action="/submit_review" method="post">
-    <table>
-        <tr>
-            <th>Rating</th>
-            <th>Ulasan</th>
-        </tr>
-        <tr>
-            <td>
-                <select name="rating" required>
-                    <option value="">Pilih Rating</option>
-                    <option value="1">1 - Sangat Buruk</option>
-                    <option value="2">2 - Buruk</option>
-                    <option value="3">3 - Cukup</option>
-                    <option value="4">4 - Baik</option>
-                    <option value="5">5 - Sangat Baik</option>
-                </select>
-            </td>
-            <td>
-                <textarea name="review" placeholder="Tuliskan ulasan Anda di sini..." required></textarea>
-            </td>
-        </tr>
-    </table>
-    <button type="submit">Kirim Ulasan</button>
-</form>
+                <body>
 
-</body>
-</html>
+                    <h2>Form Ulasan My WiFi</h2>
+                    <form action="aksi_home.php" method="post">
+                        <table>
+                            <tr>
+                                <th>Rating</th>
+                                <th>Ulasan</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <select name="rating" required>
+                                        <option value="">Pilih Rating</option>
+                                        <option value="Sangat Buruk">1 - Sangat Buruk</option>
+                                        <option value="Buruk">2 - Buruk</option>
+                                        <option value="Cukup">3 - Cukup</option>
+                                        <option value="Baik">4 - Baik</option>
+                                        <option value="Sangat Baik">5 - Sangat Baik</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <textarea name="review" placeholder="Tuliskan ulasan Anda di sini..." required></textarea>
+                                </td>
+                            </tr>
+                        </table>
+                        <button type="submit" name="ulasan">Kirim Ulasan</button>
+                    </form>
+
+                </body>
+
+                </html>
 
             </div>
             <div class="row">
