@@ -7,7 +7,7 @@ if (!isset($_SESSION['data'])) {
 }
 
 include "../koneksi/koneksi.php";
-$sql = "SELECT * FROM register WHERE level = 'admin'";
+$sql = "SELECT * FROM area_layanan";
 $query = $koneksi->query($sql);
 $datas = [];
 
@@ -29,7 +29,7 @@ if ($query->num_rows > 0) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Data Admin</title>
+    <title>Data Area Layanan</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -135,7 +135,6 @@ if ($query->num_rows > 0) {
                     <ul class="navbar-nav ml-auto">
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $_SESSION['data']['nm_lengkap'] ?></span>
                                 <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
@@ -157,30 +156,27 @@ if ($query->num_rows > 0) {
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Admin</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Area Layanan</h1>
                     </div>
                     <main>
                         <div class="container-fluid px-4 mt-4">
                             <div class="card mb-4">
                                 <div class="card-header">
                                     <i class="fas fa-table me-1"></i>
-                                    Data Admin
+                                    Data Area Layanan
                                 </div>
                                 <div class="card-body">
-                                    <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#addAdmin">
-                                        <i class="bi bi-plus-circle"></i> Tambah Admin
+                                    <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#addAreaLayanan">
+                                        <i class="bi bi-plus-circle"></i> Tambah Area Layanan
                                     </button>
                                     <table class="table table-dark table-striped-columns">
                                         <thead class="table-dark fs-6">
                                             <tr>
                                                 <th scope="col">No</th>
-                                                <th scope="col">Nama Lengkap</th>
-                                                <th scope="col">Username</th>
-                                                <th scope="col">Email</th>
-                                                <th scope="col">Nomor Handphone</th>
-                                                <th scope="col">Alamat</th>
+                                                <th scope="col">Kota</th>
+                                                <th scope="col">Provinsi</th>
+                                                <th scope="col">Kode Pos</th>
                                                 <th scope="col">Aksi</th>
-                                            </tr>
                                         </thead>
                                         <tbody class="fs-6">
                                             <?php
@@ -188,25 +184,23 @@ if ($query->num_rows > 0) {
                                             foreach ($datas as $data) : ?>
                                                 <tr>
                                                     <td scope="col"><?= $i++ ?></td>
-                                                    <td scope="col"><?= $data['nm_lengkap'] ?></td>
-                                                    <td scope="col"><?= $data['username'] ?></td>
-                                                    <td scope="col"><?= $data['email'] ?></td>
-                                                    <td scope="col"><?= $data['no_hp'] ?></td>
-                                                    <td scope="col"><?= $data['alamat'] ?></td>
+                                                    <td scope="col"><?= $data['kota'] ?></td>
+                                                    <td scope="col"><?= $data['provinsi'] ?></td>
+                                                    <td scope="col"><?= $data['kode_pos'] ?></td>
                                                     <td>
-                                                        <a href="" class="text-decoration-none btn btn-primary btn-sm m-1" data-toggle="modal" data-target="#EditModal<?= $data['id_user']; ?>">
+                                                        <a href="" class="text-decoration-none btn btn-primary btn-sm m-1" data-toggle="modal" data-target="#EditModal<?= $data['id_area']; ?>">
                                                             <i class="bi bi-pencil-square"></i>
                                                         </a>
-                                                        <a href="" class="text-decoration-none btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal<?= $data['id_user']; ?>">
+                                                        <a href="" class="text-decoration-none btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal<?= $data['id_area']; ?>">
                                                             <i class="bi bi-trash3"></i>
                                                         </a>
                                                     </td>
                                                 </tr>
-                                                <div class="modal fade" id="EditModal<?= $data['id_user']; ?>" tabindex="-1" aria-labelledby="EditModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog modal-lg">
+                                                <div class="modal fade" id="EditModal<?= $data['id_area']; ?>" tabindex="-1" aria-labelledby="EditModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Edit Admin</h5>
+                                                                <h5 class="modal-title" id="exampleModalLabel">Edit Area Layanan</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
@@ -214,34 +208,21 @@ if ($query->num_rows > 0) {
                                                             <div class="modal-body">
                                                                 <form action="function.php" method="post">
                                                                     <div class="col-12">
-                                                                        <label for="nm_lengkap" class="form-label">Nama Lengkap</label>
-                                                                        <input type="text" class="form-control" name="nm_lengkap" id="nm_lengkap" value="<?= $data['nm_lengkap'] ?>" required>
+                                                                        <label for="kota" class="form-label">Kota</label>
+                                                                        <input type="text" class="form-control" name="kota" id="kota" value="<?= $data['kota']; ?>" required>
                                                                     </div>
                                                                     <div class="col-12 mt-3">
-                                                                        <label for="username" class="form-label">Username</label>
-                                                                        <input type="text" class="form-control" name="username" id="username" value="<?= $data['username'] ?>" required>
+                                                                        <label for="provinsi" class="form-label">Provinsi</label>
+                                                                        <input type="text" class="form-control" name="provinsi" id="provinsi" value="<?= $data['provinsi']; ?>" required>
                                                                     </div>
                                                                     <div class="col-12 mt-3">
-                                                                        <label for="password" class="form-label">Password</label>
-                                                                        <input type="password" class="form-control" name="password" id="password" placeholder="Masukkan Password baru (Apabila ingin merubah password)">
-                                                                    </div>
-                                                                    <div class="col-12 mt-3">
-                                                                        <label for="email" class="form-label">Email</label>
-                                                                        <input type="email" class="form-control" name="email" id="email" value="<?= $data['email'] ?>" required>
-                                                                    </div>
-                                                                    <div class="col-12 mt-3">
-                                                                        <label for="nohp" class="form-label">Nomor Handphone</label>
-                                                                        <input type="number" class="form-control" name="nohp" id="nohp" value="<?= $data['no_hp'] ?>" required>
-                                                                        <input type="hidden" name="id_user" value="<?= $data['id_user']; ?>">
-                                                                    </div>
-                                                                    <div class="col-12 mt-3">
-                                                                        <label for="alamat" class="form-label">Alamat</label>
-                                                                        <br>
-                                                                        <textarea id="alamat" name="alamat" rows="4" class="form-control"><?= $data['alamat'] ?></textarea>
+                                                                        <label for="kode_pos" class="form-label">Kode Pos</label>
+                                                                        <input type="number" class="form-control" name="kode_pos" id="kode_pos" value="<?= $data['kode_pos']; ?>"required>
+                                                                        <input type="hidden" name="id_area" value="<?= $data['id_area']; ?>">
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                                                        <button type="submit" class="btn btn-primary" name="editAdmin">Simpan Perubahan</button>
+                                                                        <button type="submit" class="btn btn-primary" name="editAreaLayanan">Edit</button>
                                                                     </div>
                                                                 </form>
                                                             </div>
@@ -249,11 +230,11 @@ if ($query->num_rows > 0) {
                                                     </div>
                                                 </div>
 
-                                                <div class="modal fade" id="deleteModal<?= $data['id_user']; ?>" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                                <div class="modal fade" id="deleteModal<?= $data['id_area']; ?>" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Hapus Admin</h5>
+                                                                <h5 class="modal-title" id="exampleModalLabel">Hapus Area Layanan</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
@@ -262,9 +243,9 @@ if ($query->num_rows > 0) {
                                                                 Apakah Anda yakin ingin menghapus?
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <form action="function.php?id=<?= $data['id_user']; ?>" method="post">
+                                                                <form action="function.php?id=<?= $data['id_area']; ?>" method="post">
                                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                                                                    <button type="submit" class="btn btn-danger" name="deleteAdmin">Hapus</button>
+                                                                    <button type="submit" class="btn btn-danger" name="deleteAreaLayanan">Hapus</button>
                                                                 </form>
                                                             </div>
                                                         </div>
@@ -281,11 +262,11 @@ if ($query->num_rows > 0) {
             </div>
             <!-- End of Main Content -->
 
-            <div class="modal fade" id="addAdmin" tabindex="-1" aria-labelledby="addAdminLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
+            <div class="modal fade" id="addAreaLayanan" tabindex="-1" aria-labelledby="addAreaLayananLabel" aria-hidden="true">
+                <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="addAdmin">Tambah Admin</h5>
+                            <h5 class="modal-title" id="addAreaLayanan">Tambah Area Layanan</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -293,33 +274,20 @@ if ($query->num_rows > 0) {
                         <div class="modal-body">
                             <form action="function.php" method="post">
                                 <div class="col-12">
-                                    <label for="nm_lengkap" class="form-label">Nama Lengkap</label>
-                                    <input type="text" class="form-control" name="nm_lengkap" id="nm_lengkap" required>
+                                    <label for="kota" class="form-label">Kota</label>
+                                    <input type="text" class="form-control" name="kota" id="kota" required>
                                 </div>
                                 <div class="col-12 mt-3">
-                                    <label for="username" class="form-label">Username</label>
-                                    <input type="text" class="form-control" name="username" id="username" required>
+                                    <label for="provinsi" class="form-label">Provinsi</label>
+                                    <input type="text" class="form-control" name="provinsi" id="provinsi" required>
                                 </div>
                                 <div class="col-12 mt-3">
-                                    <label for="password" class="form-label">Password</label>
-                                    <input type="password" class="form-control" name="password" id="password" required>
-                                </div>
-                                <div class="col-12 mt-3">
-                                    <label for="email" class="form-label">Email</label>
-                                    <input type="email" class="form-control" name="email" id="email" required>
-                                </div>
-                                <div class="col-12 mt-3">
-                                    <label for="nohp" class="form-label">Nomor Handphone</label>
-                                    <input type="number" class="form-control" name="nohp" id="nohp" required>
-                                </div>
-                                <div class="col-12 mt-3">
-                                    <label for="alamat" class="form-label">Alamat</label>
-                                    <br>
-                                    <textarea id="alamat" name="alamat" rows="4" class="form-control"></textarea>
+                                    <label for="kode_pos" class="form-label">Kode Pos</label>
+                                    <input type="number" class="form-control" name="kode_pos" id="kode_pos" required>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                    <button type="submit" class="btn btn-primary" name="addAdmin">Tambah</button>
+                                    <button type="submit" class="btn btn-primary" name="addAreaLayanan">Tambah</button>
                                 </div>
                             </form>
                         </div>

@@ -7,7 +7,7 @@ if (!isset($_SESSION['data'])) {
 }
 
 include "../koneksi/koneksi.php";
-$sql = "SELECT * FROM register WHERE level = 'admin'";
+$sql = "SELECT * FROM teknisi";
 $query = $koneksi->query($sql);
 $datas = [];
 
@@ -135,7 +135,6 @@ if ($query->num_rows > 0) {
                     <ul class="navbar-nav ml-auto">
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $_SESSION['data']['nm_lengkap'] ?></span>
                                 <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
@@ -157,28 +156,26 @@ if ($query->num_rows > 0) {
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Admin</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Teknisi</h1>
                     </div>
                     <main>
                         <div class="container-fluid px-4 mt-4">
                             <div class="card mb-4">
                                 <div class="card-header">
                                     <i class="fas fa-table me-1"></i>
-                                    Data Admin
+                                    Data Teknisi
                                 </div>
                                 <div class="card-body">
-                                    <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#addAdmin">
-                                        <i class="bi bi-plus-circle"></i> Tambah Admin
+                                    <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#addTeknisi">
+                                        <i class="bi bi-plus-circle"></i> Tambah Teknisi
                                     </button>
                                     <table class="table table-dark table-striped-columns">
                                         <thead class="table-dark fs-6">
                                             <tr>
                                                 <th scope="col">No</th>
                                                 <th scope="col">Nama Lengkap</th>
-                                                <th scope="col">Username</th>
-                                                <th scope="col">Email</th>
                                                 <th scope="col">Nomor Handphone</th>
-                                                <th scope="col">Alamat</th>
+                                                <th scope="col">Keahlian</th>
                                                 <th scope="col">Aksi</th>
                                             </tr>
                                         </thead>
@@ -188,21 +185,19 @@ if ($query->num_rows > 0) {
                                             foreach ($datas as $data) : ?>
                                                 <tr>
                                                     <td scope="col"><?= $i++ ?></td>
-                                                    <td scope="col"><?= $data['nm_lengkap'] ?></td>
-                                                    <td scope="col"><?= $data['username'] ?></td>
-                                                    <td scope="col"><?= $data['email'] ?></td>
-                                                    <td scope="col"><?= $data['no_hp'] ?></td>
-                                                    <td scope="col"><?= $data['alamat'] ?></td>
+                                                    <td scope="col"><?= $data['nama_teknisi'] ?></td>
+                                                    <td scope="col"><?= $data['no_teknisi'] ?></td>
+                                                    <td scope="col"><?= $data['keahlian'] ?></td>
                                                     <td>
-                                                        <a href="" class="text-decoration-none btn btn-primary btn-sm m-1" data-toggle="modal" data-target="#EditModal<?= $data['id_user']; ?>">
+                                                        <a href="" class="text-decoration-none btn btn-primary btn-sm m-1" data-toggle="modal" data-target="#EditModal<?= $data['id_teknisi']; ?>">
                                                             <i class="bi bi-pencil-square"></i>
                                                         </a>
-                                                        <a href="" class="text-decoration-none btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal<?= $data['id_user']; ?>">
+                                                        <a href="" class="text-decoration-none btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal<?= $data['id_teknisi']; ?>">
                                                             <i class="bi bi-trash3"></i>
                                                         </a>
                                                     </td>
                                                 </tr>
-                                                <div class="modal fade" id="EditModal<?= $data['id_user']; ?>" tabindex="-1" aria-labelledby="EditModalLabel" aria-hidden="true">
+                                                <div class="modal fade" id="EditModal<?= $data['id_teknisi']; ?>" tabindex="-1" aria-labelledby="EditModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-lg">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -213,35 +208,22 @@ if ($query->num_rows > 0) {
                                                             </div>
                                                             <div class="modal-body">
                                                                 <form action="function.php" method="post">
-                                                                    <div class="col-12">
-                                                                        <label for="nm_lengkap" class="form-label">Nama Lengkap</label>
-                                                                        <input type="text" class="form-control" name="nm_lengkap" id="nm_lengkap" value="<?= $data['nm_lengkap'] ?>" required>
+                                                                <div class="col-12">
+                                                                        <label for="nama_teknisi" class="form-label">Nama Lengkap</label>
+                                                                        <input type="text" class="form-control" name="nama_teknisi" id="nama_teknisi" value="<?= $data['nama_teknisi'] ?>" required>
                                                                     </div>
                                                                     <div class="col-12 mt-3">
-                                                                        <label for="username" class="form-label">Username</label>
-                                                                        <input type="text" class="form-control" name="username" id="username" value="<?= $data['username'] ?>" required>
+                                                                        <label for="no_teknisi" class="form-label">Nomor Handphone</label>
+                                                                        <input type="number" class="form-control" name="no_teknisi" id="no_teknisi" value="<?= $data['no_teknisi'] ?>" required>
                                                                     </div>
                                                                     <div class="col-12 mt-3">
-                                                                        <label for="password" class="form-label">Password</label>
-                                                                        <input type="password" class="form-control" name="password" id="password" placeholder="Masukkan Password baru (Apabila ingin merubah password)">
-                                                                    </div>
-                                                                    <div class="col-12 mt-3">
-                                                                        <label for="email" class="form-label">Email</label>
-                                                                        <input type="email" class="form-control" name="email" id="email" value="<?= $data['email'] ?>" required>
-                                                                    </div>
-                                                                    <div class="col-12 mt-3">
-                                                                        <label for="nohp" class="form-label">Nomor Handphone</label>
-                                                                        <input type="number" class="form-control" name="nohp" id="nohp" value="<?= $data['no_hp'] ?>" required>
-                                                                        <input type="hidden" name="id_user" value="<?= $data['id_user']; ?>">
-                                                                    </div>
-                                                                    <div class="col-12 mt-3">
-                                                                        <label for="alamat" class="form-label">Alamat</label>
-                                                                        <br>
-                                                                        <textarea id="alamat" name="alamat" rows="4" class="form-control"><?= $data['alamat'] ?></textarea>
+                                                                        <label for="keahlian" class="form-label">Keahlian</label>
+                                                                        <input type="text" class="form-control" name="keahlian" id="keahlian" value="<?= $data['keahlian'] ?>"  required>
+                                                                        <input type="hidden" name="id_teknisi" value="<?= $data['id_teknisi']; ?>">
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                                                        <button type="submit" class="btn btn-primary" name="editAdmin">Simpan Perubahan</button>
+                                                                        <button type="submit" class="btn btn-primary" name="editTeknisi">Simpan Perubahan</button>
                                                                     </div>
                                                                 </form>
                                                             </div>
@@ -249,11 +231,11 @@ if ($query->num_rows > 0) {
                                                     </div>
                                                 </div>
 
-                                                <div class="modal fade" id="deleteModal<?= $data['id_user']; ?>" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                                <div class="modal fade" id="deleteModal<?= $data['id_teknisi']; ?>" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Hapus Admin</h5>
+                                                                <h5 class="modal-title" id="exampleModalLabel">Hapus Teknisi</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
@@ -262,9 +244,9 @@ if ($query->num_rows > 0) {
                                                                 Apakah Anda yakin ingin menghapus?
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <form action="function.php?id=<?= $data['id_user']; ?>" method="post">
+                                                                <form action="function.php?id=<?= $data['id_teknisi']; ?>" method="post">
                                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                                                                    <button type="submit" class="btn btn-danger" name="deleteAdmin">Hapus</button>
+                                                                    <button type="submit" class="btn btn-danger" name="deleteTeknisi">Hapus</button>
                                                                 </form>
                                                             </div>
                                                         </div>
@@ -281,11 +263,11 @@ if ($query->num_rows > 0) {
             </div>
             <!-- End of Main Content -->
 
-            <div class="modal fade" id="addAdmin" tabindex="-1" aria-labelledby="addAdminLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
+            <div class="modal fade" id="addTeknisi" tabindex="-1" aria-labelledby="addTeknisiLabel" aria-hidden="true">
+                <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="addAdmin">Tambah Admin</h5>
+                            <h5 class="modal-title" id="addTeknisi">Tambah Teknisi</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -293,33 +275,20 @@ if ($query->num_rows > 0) {
                         <div class="modal-body">
                             <form action="function.php" method="post">
                                 <div class="col-12">
-                                    <label for="nm_lengkap" class="form-label">Nama Lengkap</label>
-                                    <input type="text" class="form-control" name="nm_lengkap" id="nm_lengkap" required>
+                                    <label for="nama_teknisi" class="form-label">Nama Lengkap</label>
+                                    <input type="text" class="form-control" name="nama_teknisi" id="nama_teknisi" required>
                                 </div>
                                 <div class="col-12 mt-3">
-                                    <label for="username" class="form-label">Username</label>
-                                    <input type="text" class="form-control" name="username" id="username" required>
+                                    <label for="no_teknisi" class="form-label">Nomor Handphone</label>
+                                    <input type="number" class="form-control" name="no_teknisi" id="no_teknisi" required>
                                 </div>
                                 <div class="col-12 mt-3">
-                                    <label for="password" class="form-label">Password</label>
-                                    <input type="password" class="form-control" name="password" id="password" required>
-                                </div>
-                                <div class="col-12 mt-3">
-                                    <label for="email" class="form-label">Email</label>
-                                    <input type="email" class="form-control" name="email" id="email" required>
-                                </div>
-                                <div class="col-12 mt-3">
-                                    <label for="nohp" class="form-label">Nomor Handphone</label>
-                                    <input type="number" class="form-control" name="nohp" id="nohp" required>
-                                </div>
-                                <div class="col-12 mt-3">
-                                    <label for="alamat" class="form-label">Alamat</label>
-                                    <br>
-                                    <textarea id="alamat" name="alamat" rows="4" class="form-control"></textarea>
+                                    <label for="keahlian" class="form-label">Keahlian</label>
+                                    <input type="text" class="form-control" name="keahlian" id="keahlian" required>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                    <button type="submit" class="btn btn-primary" name="addAdmin">Tambah</button>
+                                    <button type="submit" class="btn btn-primary" name="addTeknisi">Tambah</button>
                                 </div>
                             </form>
                         </div>
@@ -377,4 +346,4 @@ if ($query->num_rows > 0) {
         <script src="js/sb-admin-2.min.js"></script>
 </body>
 
-</html>
+</html> 
