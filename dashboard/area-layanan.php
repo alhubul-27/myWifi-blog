@@ -68,52 +68,38 @@ if ($query->num_rows > 0) {
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="admin.php">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <i class="bi bi-person-fill"></i>
                     <span>Admin</span></a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="teknisi.php">
+                    <i class="bi bi-person-fill"></i>
+                    <span>Teknisi</span></a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="area-layanan.php">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <i class="bi bi-geo-alt-fill"></i>
                     <span>Area Layanan</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="layanan.php">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <i class="bi bi-router-fill"></i>
                     <span>Layanan</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                <a class="nav-link" href="riwayat-transaksi.php">
+                    <i class="bi bi-clock-history"></i>
                     <span>Riwayat Transaksi</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Pesanan</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <a class="nav-link" href="index.html">
-                        <i class="fas fa-fw fa-tachometer-alt"></i>
-                        <span>Pesanan Layanan</span></a>
-                    <a class="nav-link" href="index.html">
-                        <i class="fas fa-fw fa-tachometer-alt"></i>
-                        <span>Pesanan Teknisi</span></a>
-                </div>
+                <a class="nav-link" href="index.html">
+                    <i class="bi bi-chat-left-dots"></i>
+                    <span>Status Layanan</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>FAQ</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="index.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Teknisi</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="index.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Layanan</span></a>
+                <a class="nav-link" href="ulasan.php">
+                    <i class="bi bi-chat-dots"></i>
+                    <span>Ulasan</span></a>
             </li>
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -121,7 +107,7 @@ if ($query->num_rows > 0) {
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="../aksi/aksi_login.php?op=out">
-                    <i class="fas fa-fw fa-table"></i>
+                    <i class="bi bi-box-arrow-left"></i>
                     <span>Logout</span></a>
             </li>
             <!-- Sidebar Toggler (Sidebar) -->

@@ -29,7 +29,7 @@ if ($query->num_rows > 0) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Data Area Layanan</title>
+    <title>Data Layanan</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -68,52 +68,38 @@ if ($query->num_rows > 0) {
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="admin.php">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <i class="bi bi-person-fill"></i>
                     <span>Admin</span></a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="teknisi.php">
+                    <i class="bi bi-person-fill"></i>
+                    <span>Teknisi</span></a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="area-layanan.php">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <i class="bi bi-geo-alt-fill"></i>
                     <span>Area Layanan</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="layanan.php">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <i class="bi bi-router-fill"></i>
                     <span>Layanan</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                <a class="nav-link" href="riwayat-transaksi.php">
+                    <i class="bi bi-clock-history"></i>
                     <span>Riwayat Transaksi</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Pesanan</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <a class="nav-link" href="index.html">
-                        <i class="fas fa-fw fa-tachometer-alt"></i>
-                        <span>Pesanan Layanan</span></a>
-                    <a class="nav-link" href="index.html">
-                        <i class="fas fa-fw fa-tachometer-alt"></i>
-                        <span>Pesanan Teknisi</span></a>
-                </div>
+                <a class="nav-link" href="index.html">
+                    <i class="bi bi-chat-left-dots"></i>
+                    <span>Status Layanan</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>FAQ</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="index.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Teknisi</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="index.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Layanan</span></a>
+                <a class="nav-link" href="ulasan.php">
+                    <i class="bi bi-chat-dots"></i>
+                    <span>Ulasan</span></a>
             </li>
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -121,7 +107,7 @@ if ($query->num_rows > 0) {
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="../aksi/aksi_login.php?op=out">
-                    <i class="fas fa-fw fa-table"></i>
+                    <i class="bi bi-box-arrow-left"></i>
                     <span>Logout</span></a>
             </li>
             <!-- Sidebar Toggler (Sidebar) -->
@@ -180,6 +166,94 @@ if ($query->num_rows > 0) {
                                     Data Layanan
                                 </div>
                                 <div class="card-body">
+                                    <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#addAreaLayanan">
+                                        <i class="bi bi-plus-circle"></i> Tambah Layanan
+                                    </button>
+                                    <table class="table table-dark table-striped-columns">
+                                        <thead class="table-dark fs-6">
+                                            <tr>
+                                                <th scope="col">No</th>
+                                                <th scope="col">Nama Layanan</th>
+                                                <th scope="col">Deskripsi</th>
+                                                <th scope="col">Harga</th>
+                                                <td scope="col">Aksi</td>
+                                        </thead>
+                                        <tbody class="fs-6">
+                                            <?php
+                                            $i = 1;
+                                            foreach ($datas as $data) : ?>
+                                                <tr>
+                                                    <td scope="col"><?= $i++ ?></td>
+                                                    <td scope="col"><?= $data['nama_layanan'] ?></td>
+                                                    <td scope="col"><?= $data['deskripsi'] ?></td>
+                                                    <td scope="col"><?= "Rp" . number_format($data['harga'], 0, ',', '.'); ?></td>
+                                                    <td>
+                                                        <a href="" class="text-decoration-none btn btn-primary btn-sm m-1" data-toggle="modal" data-target="#EditModal<?= $data['id_layanan']; ?>">
+                                                            <i class="bi bi-pencil-square"></i>
+                                                        </a>
+                                                        <a href="" class="text-decoration-none btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal<?= $data['id_layanan']; ?>">
+                                                            <i class="bi bi-trash3"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <div class="modal fade" id="EditModal<?= $data['id_layanan']; ?>" tabindex="-1" aria-labelledby="EditModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Edit Layanan</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form action="function.php" method="post">
+                                                                    <div class="col-12">
+                                                                        <label for="nama_layanan" class="form-label">Nama Layanan</label>
+                                                                        <input type="text" class="form-control" name="nama_layanan" id="nama_layanan" value="<?= $data['nama_layanan']; ?>" required>
+                                                                    </div>
+                                                                    <div class="col-12 mt-3">
+                                                                        <label for="deskripsi" class="form-label">Deskripsi</label>
+                                                                        <input type="text" class="form-control" name="deskripsi" id="deskripsi" value="<?= $data['deskripsi']; ?>" required>
+                                                                    </div>
+                                                                    <div class="col-12 mt-3">
+                                                                        <label for="harga" class="form-label">Harga</label>
+                                                                        <input type="number" class="form-control" name="harga" id="harga" value="<?= $data['harga']; ?>" required>
+                                                                        <input type="hidden" name="id_layanan" value="<?= $data['id_layanan']; ?>">
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                                        <button type="submit" class="btn btn-primary" name="editAreaLayanan">Edit</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal fade" id="deleteModal<?= $data['id_layanan']; ?>" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Hapus Layanan</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Apakah Anda yakin ingin menghapus?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <form action="function.php?id=<?= $data['id_layanan']; ?>" method="post">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                                                    <button type="submit" class="btn btn-danger" name="deleteAreaLayanan">Hapus</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
                                     <form action="function.php" method="post">
                                         <h3>Multi Update</h3>
                                         <label for="update_prices">Tambahkan 10% ke Harga:</label><br>
