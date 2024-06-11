@@ -4,12 +4,10 @@ include "../koneksi/koneksi.php";
 date_default_timezone_set('Asia/Jakarta');
 
 if (isset($_POST['kirimDataDiri'])) {
-    // Retrieve form data
     $idUser = $_SESSION['data']['id_user'];
     $idArea = $_POST['id_area'];
     $pilihPaket = $_POST['pilihPaket'];
     
-    // Fetch id_layanan based on the selected package
     $query = "SELECT id_layanan FROM layanan WHERE deskripsi = ?";
     $stmt = $koneksi->prepare($query);
     $stmt->bind_param("s", $pilihPaket);
@@ -24,21 +22,35 @@ if (isset($_POST['kirimDataDiri'])) {
         exit();
     }
 
-    $stmt->close();
-
     $tanggalPesanan = date('Y-m-d');
 
     $sql = "INSERT INTO pesanan (id_user, id_layanan, id_area, tanggal_pesanan) VALUES ('". $idUser ."', '". $idLayanan ."', '". $idArea ."', '". $tanggalPesanan ."')";
-    $query = $koneksi->query($sql);
 
-    if ($query === true) {
-        header("Location: ../home/index.php");
+    if ($koneksi->query($sql) === true) {
+        $id = $koneksi->insert_id;
+        header("Location: checkout.php?id=" . $id);
         exit();
     } else {
         echo "Terjadi kesalahan: " . $stmt->error;
     }
 
     $stmt->close();
+}
+
+if(isset($_GET['ids']) && isset($_GET['hrg'])){
+    $id_pesanan = $_GET['ids'];
+    $harga = $_GET['hrg'];
+    $tanggal_pembayaran = date('Y-m-d');
+    $status = "PAID";
+
+    $sql = "INSERT INTO payment (id_pesanan, harga, tanggal_pembayaran, status) VALUES ('" . $id_pesanan . "', '" . $harga . "', '" . $tanggal_pembayaran . "', '" . $status ."')";
+    $query = $koneksi->query($sql);
+
+    if ($query === true) {
+        header('Location: ../home/index.php');
+    } else {
+        echo "Error: " . $koneksi->error;
+    }
 }
 
 $koneksi->close();

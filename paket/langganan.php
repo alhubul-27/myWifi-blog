@@ -31,7 +31,7 @@ if (isset($_SESSION['data'])) {
     </nav>
 
     <div class="container mt-5">
-        <form id="reviewForm" action="konfirmasi.php" method="post">
+        <form id="reviewForm" action="aksi_langganan.php" method="post">
             <div class="mb-3">
                 <label for="namaLengkap" class="form-label">Nama Lengkap</label>
                 <input type="text" class="form-control" id="namaLengkap" name="namaLengkap" placeholder="Nama Lengkap" value="<?= $_SESSION['data']['nm_lengkap'] ?>">
@@ -59,11 +59,11 @@ if (isset($_SESSION['data'])) {
                     <?php endforeach; ?>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary" id="submitButton" name="upload">Kirim Data</button>
+            <button type="submit" class="btn btn-primary" id="submitButton" name="kirimDataDiri">Kirim Data</button>
         </form>
     </div>
 
-    <script>
+    <!-- <script>
         document.getElementById('reviewForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Mencegah form submit default
 
@@ -80,6 +80,6 @@ if (isset($_SESSION['data'])) {
             // Redirect ke halaman konfirmasi
             window.location.href = 'checkout.php';
         });
-    </script>
+    </script> -->
 </body>
 </html>

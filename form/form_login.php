@@ -1,5 +1,19 @@
+<?php
+session_start();
+
+if (isset($_SESSION['data'])) {
+    if (isset($_SESSION['data']['level']) == 'user') {
+        header('Location: ../home/index.php');
+        exit();
+    } else {
+        header('Location: ../dashboard/index.php');
+        exit();
+    }
+}
+?>
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -7,30 +21,38 @@
     <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <style>
         body {
-            background-color: #f0f0f0; /* Ganti warna background */
+            background-color: #f0f0f0;
+            /* Ganti warna background */
         }
+
         .card {
             border: none;
             border-radius: 15px;
-            box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.1);
+            box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
         }
+
         .form-label {
             font-weight: bold;
         }
+
         .btn-primary {
             background-color: #007bff;
             border: none;
             transition: all 0.3s ease;
         }
+
         .btn-primary:hover {
             background-color: #0056b3;
         }
+
         .link-secondary {
             color: #6c757d;
         }
+
         .link-secondary:hover {
             color: #343a40;
         }
+
         /* Atur posisi tengah */
         .centered {
             display: flex;
@@ -40,6 +62,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="centered">
         <section class="p-3 p-md-4 p-xl-5">
@@ -75,4 +98,5 @@
         </section>
     </div>
 </body>
+
 </html>
