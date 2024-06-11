@@ -3,7 +3,7 @@ session_start();
 include "../koneksi/koneksi.php";
 date_default_timezone_set('Asia/Jakarta');
 
-if (isset($_POST['submit'])) {
+if (isset($_POST['kirimDataDiri'])) {
     // Retrieve form data
     $idUser = $_SESSION['data']['id_user'];
     $idArea = $_POST['id_area'];
@@ -26,17 +26,13 @@ if (isset($_POST['submit'])) {
 
     $stmt->close();
 
-    // Get current date and time
-    $tanggalPesanan = date('Y-m-d H:i:s');
-    $status = 'Pending';
+    $tanggalPesanan = date('Y-m-d');
 
-    // Prepare the SQL statement to insert into pesanan
-    $stmt = $koneksi->prepare("INSERT INTO pesanan (id_user, id_layanan, id_area, tanggal_pesanan, status) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("iiiss", $idUser, $idLayanan, $idArea, $tanggalPesanan, $status);
+    $sql = "INSERT INTO pesanan (id_user, id_layanan, id_area, tanggal_pesanan) VALUES ('". $idUser ."', '". $idLayanan ."', '". $idArea ."', '". $tanggalPesanan ."')";
+    $query = $koneksi->query($sql);
 
-    // Execute the statement
-    if ($stmt->execute()) {
-        header("Location: ../dashboard/success.php");
+    if ($query === true) {
+        header("Location: ../home/index.php");
         exit();
     } else {
         echo "Terjadi kesalahan: " . $stmt->error;

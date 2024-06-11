@@ -8,8 +8,7 @@ if (!isset($_SESSION['data'])) {
 
 include "../koneksi/koneksi.php";
 $sql = "SELECT * FROM ulasan 
-JOIN register ON ulasan.id_user = register.id_user
-JOIN layanan ON ulasan.id_layanan = layanan.id_layanan";
+JOIN register ON ulasan.id_user = register.id_user";
 $query = $koneksi->query($sql);
 $datas = [];
 
@@ -173,8 +172,6 @@ if ($query->num_rows > 0) {
                                             <tr>
                                                 <th scope="col">No</th>
                                                 <th scope="col">Nama Pelanggan</th>
-                                                <th scope="col">Nama Layanan</th>
-                                                <th scope="col">Deskripsi Layanan</th>
                                                 <th scope="col">Penilaian</th>
                                                 <th scope="col">Komentar</th>
                                                 <th scope="col">Tanggal Ulasan</th>
@@ -187,8 +184,6 @@ if ($query->num_rows > 0) {
                                                 <tr>
                                                     <td scope="col"><?= $i++ ?></td>
                                                     <td scope="col"><?= $data['nm_lengkap'] ?></td>
-                                                    <td scope="col"><?= $data['nama_layanan'] ?></td>
-                                                    <td scope="col"><?= $data['deskripsi'] ?></td>
                                                     <td scope="col"><?= $data['penilaian'] ?></td>
                                                     <td scope="col"><?= $data['komentar'] ?></td>
                                                     <td scope="col"><?= $data['tanggal_ulasan'] ?></td>
