@@ -130,7 +130,7 @@ if (isset($_POST['deleteRiwayatTransaksi'])) {
     $query = $koneksi->query($sql);
 
     if (isset($data['id_pesanan'])) {
-        $sql = "DELETE FROM pesanan WHERE id_pesanan = '". $data['id_pesanan'] . "'";
+        $sql = "DELETE FROM pesanan WHERE id_pesanan = '" . $data['id_pesanan'] . "'";
         $query = $koneksi->query($sql);
 
         if ($query === true) {
@@ -203,7 +203,121 @@ if (isset($_POST['deleteUlasan'])) {
     }
 }
 
-// Aksi Layanan (Menyusul)
+// Aksi Status Layanan
+if (isset($_POST['deleteStatusLayanan'])) {
+    $target_directory = "../assets/" . $_POST['gambar'];
+    if (file_exists($target_directory) && unlink($target_directory)) {
+        $id_status_layanan = $_POST['id'];
 
+        $sql = "DELETE FROM status_layanan WHERE id_status_layanan = '$id_status_layanan'";
 
+        $query = $koneksi->query($sql);
+        if ($query === true) {
+            header('Location: status-layanan.php');
+        } else {
+            echo "Error: " . $koneksi->error;
+        }
+    } else {
+        echo "Failed to delete file.";
+    }
+}
 
+if (isset($_POST['download'])) {
+    $file = '../assets/' . $_POST['gambar'];
+
+    if (file_exists($file)) {
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename="' . basename($file) . '"');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length: ' . filesize($file));
+
+        // Bersihkan output buffer
+        ob_clean();
+        flush();
+
+        // Baca file dan kirim ke output buffer
+        readfile($file);
+        exit;
+    } else {
+        // Jika file tidak ditemukan, beri pesan error
+        echo 'File not found.';
+    }
+}
+
+// Aksi Layanan
+if (isset($_POST['addLayanan'])) {
+    $nama_layanan = $_POST['nama_layanan'];
+    $deskripsi = $_POST['deskripsi'];
+    $harga = $_POST['harga'];
+
+    $sql = "INSERT INTO layanan (nama_layanan,  deskripsi, harga) VALUES ('$nama_layanan',  '$deskripsi', '$harga')";
+    $query = $koneksi->query($sql);
+
+    if ($query === true) {
+        header('Location: layanan.php');
+    } else {
+        echo "Error: " . $koneksi->error;
+    }
+}
+
+if (isset($_POST['editLayanan'])) {
+    $nama_layanan = $_POST['nama_layanan'];
+    $deskripsi = $_POST['deskripsi'];
+    $harga = $_POST['harga'];
+    $id_layanan = $_POST['id_layanan'];
+
+    $sql = "UPDATE layanan SET nama_layanan = '$nama_layanan', deskripsi = '$deskripsi', harga = '$harga' WHERE id_layanan = $id_layanan";
+    $query = $koneksi->query($sql);
+
+    if ($query === true) {
+        header('Location: layanan.php');
+    } else {
+        echo "Error: " . $koneksi->error;
+    }
+}
+
+if (isset($_POST['deleteLayanan'])) {
+    $id_layanan = $_GET['id'];
+
+    $sql = "DELETE FROM layanan WHERE id_layanan = '$id_layanan'";
+
+    $query = $koneksi->query($sql);
+    if ($query === true) {
+        header('Location: layanan.php');
+    } else {
+        echo "Error: " . $koneksi->error;
+    }
+}
+
+if (isset($_POST['multiDeleted'])) {
+    $ids = $_POST['id'];
+
+    foreach ($ids as $id) {
+        $query = "DELETE FROM layanan WHERE id_layanan = $id";
+        $result = $koneksi->query($query);
+    }
+
+    header("Location: layanan.php");
+}
+
+if (isset($_POST['multiUpdated'])) {
+    $ids = $_POST['id'];
+    $discount = $_POST['discount'];
+
+    foreach ($ids as $id) {
+        $query = "SELECT harga FROM layanan WHERE id_layanan = $id";
+        $result = $koneksi->query($query);
+        $row = $result->fetch_assoc();
+        $harga_asli = $row['harga'];
+
+        $harga_baru = $harga_asli - ($harga_asli * $discount / 100);
+
+        $query = "UPDATE layanan SET harga = $harga_baru WHERE id_layanan = $id";
+        $result = $koneksi->query($query);
+    }
+
+    header("Location: layanan.php");
+}

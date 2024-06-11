@@ -79,7 +79,7 @@ if (!isset($_SESSION['data'])) {
                     <span>Riwayat Transaksi</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="status-layanan.php">
                     <i class="bi bi-chat-left-dots"></i>
                     <span>Status Layanan</span></a>
             </li>
