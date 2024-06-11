@@ -1,63 +1,78 @@
 <!doctype html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Login Akun</title>
     <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.4/components/logins/login-4/assets/css/login-4.css">
+    <style>
+        body {
+            background-color: #f0f0f0; /* Ganti warna background */
+        }
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.1);
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .link-secondary {
+            color: #6c757d;
+        }
+        .link-secondary:hover {
+            color: #343a40;
+        }
+        /* Atur posisi tengah */
+        .centered {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
 </head>
-
 <body>
-    <!-- Login 4 - Bootstrap Brain Component -->
-    <section class="p-3 p-md-4 p-xl-5">
-        <div class="container">
-            <div class="card border-light-subtle shadow-sm">
-                <div class="row g-0">
-                    <div class="col-12 col-md-6">
-                        <img class="img-fluid rounded-start w-100 h-100 object-fit-cover" loading="lazy" src="./assets/img/logo-img-1.webp" alt="BootstrapBrain Logo">
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <div class="card-body p-3 p-md-4 p-xl-5">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="mb-5">
-                                        <h3>Log in</h3>
+    <div class="centered">
+        <section class="p-3 p-md-4 p-xl-5">
+            <div class="container">
+                <div class="card">
+                    <div class="row g-0">
+                        <div class="col-md-6">
+                            <img class="img-fluid rounded-start" src="./assets/icon login.png" alt="BootstrapBrain Logo"> <!-- Ganti gambar -->
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-body p-4">
+                                <h3 class="mb-4">Log in</h3>
+                                <form action="../aksi/aksi_login.php?op=in" method="post">
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">Username <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="username" id="email" placeholder="Enter your username" required>
                                     </div>
-                                </div>
-                            </div>
-                            <form action="../aksi/aksi_login.php?op=in" method="post">
-                                <div class="row gy-3 gy-md-4 overflow-hidden">
-                                    <div class="col-12">
-                                        <label for="text" class="form-label">username <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="username" id="email" placeholder="name@example.com" required>
-                                    </div>
-                                    <div class="col-12">
+                                    <div class="mb-3">
                                         <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
-                                        <input type="password" class="form-control" name="password" id="password" value="" required>
+                                        <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password" required>
                                     </div>
-                                    <div class="col-12">
-                                        <div class="d-grid">
-                                            <button class="btn bsb-btn-xl btn-primary" type="submit">Log in now</button>
-                                        </div>
+                                    <div class="mb-3">
+                                        <button class="btn btn-primary btn-lg btn-block" type="submit">Log in now</button>
                                     </div>
-                                </div>
-                            </form>
-                            <div class="row">
-                                <div class="col-12">
-                                    <hr class="mt-5 mb-4 border-secondary-subtle">
-                                    <div class="d-flex gap-2 gap-md-4 flex-column flex-md-row justify-content-md-end">
-                                        Sudah Punya Akun?<a href="form_register.php" class="link-secondary text-decoration-none">Daftar</a>
-                                    </div>
-                                </div>
+                                </form>
+                                <hr class="my-4">
+                                <p class="text-center">Belum punya akun? <a href="form_register.php" class="link-secondary">Daftar</a></p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 </body>
-
 </html>
