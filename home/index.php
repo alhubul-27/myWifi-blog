@@ -7,20 +7,29 @@ if (!isset($_SESSION['data'])) {
 }
 
 include "../koneksi/koneksi.php";
-$sql = "SELECT * FROM layanan";
+$sql = "SELECT * FROM layanan WHERE nama_layanan = 'Wifi'";
 $query = $koneksi->query($sql);
-$datas = [];
+$data_wifi = [];
 
 if ($query->num_rows > 0) {
     while ($row = $query->fetch_assoc()) {
-        $datas[] = $row;
+        $data_wifi[] = $row;
+    }
+}
+
+$sql = "SELECT * FROM layanan WHERE nama_layanan = 'TV'";
+$query = $koneksi->query($sql);
+$data_TV = [];
+
+if ($query->num_rows > 0) {
+    while ($row = $query->fetch_assoc()) {
+        $data_TV[] = $row;
     }
 }
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<?php session_start(); ?>
 
 <head>
     <meta charset="utf-8" />
@@ -196,96 +205,39 @@ if ($query->num_rows > 0) {
                 <h3 class="section-subheading text-muted">Wifi Dan TV Parabola</h3>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-sm-6 mb-4">
-                    <!-- Portfolio item 1-->
-                    <div class="portfolio-item">
-                        <a class="portfolio-link" data-bs-toggle="modal" href="../paket/langganan.php?paket=30 Mbps">
-                            <div class="portfolio-hover">
-                                <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                <?php foreach ($data_wifi as $data) : ?>
+                    <div class="col-lg-4 col-sm-6 mb-4">
+                        <!-- Portfolio item 1-->
+                        <div class="portfolio-item">
+                            <a class="portfolio-link" data-bs-toggle="modal" href="../paket/langganan.php?paket=<?= $data['deskripsi'] ?>">
+                                <div class="portfolio-hover">
+                                    <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                </div>
+                                <img class="img-fluid" src="assets/img/portfolio/wifi.jpeg" alt="..." />
+                            </a>
+                            <div class="portfolio-caption">
+                                <div class="portfolio-caption-heading"><?= $data['deskripsi'] ?></div>
+                                <div class="portfolio-caption-subheading text-muted"><?= "Rp" . number_format($data['harga'], 0, ',', '.'); ?>/bulan</div>
                             </div>
-                            <img class="img-fluid" src="assets/img/portfolio/wifi.jpeg" alt="..." />
-                        </a>
-                        <div class="portfolio-caption">
-                            <div class="portfolio-caption-heading">30 Mbps</div>
-                            <div class="portfolio-caption-subheading text-muted">Rp. 235.000/bulan</div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4 col-sm-6 mb-4">
-                    <!-- Portfolio item 2-->
-                    <div class="portfolio-item">
-                        <a class="portfolio-link" data-bs-toggle="modal" href="../paket/langganan.php?paket=50 Mbps">
-                            <div class="portfolio-hover">
-                                <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                <?php endforeach; ?>
+                <?php foreach ($data_TV as $data) : ?>
+                    <div class="col-lg-4 col-sm-6 mb-4">
+                        <div class="portfolio-item">
+                            <a class="portfolio-link" data-bs-toggle="modal" href="../paket/langganan.php?paket=<?= $data['deskripsi'] ?>">
+                                <div class="portfolio-hover">
+                                    <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                </div>
+                                <img class="img-fluid" src="assets/img/portfolio/parabola.jpg" alt="..." />
+                            </a>
+                            <div class="portfolio-caption">
+                                <div class="portfolio-caption-heading"><?= $data['deskripsi'] ?></div>
+                                <div class="portfolio-caption-subheading text-muted"><?= "Rp" . number_format($data['harga'], 0, ',', '.'); ?>/bulan</div>
                             </div>
-                            <img class="img-fluid" src="assets/img/portfolio/wifi.jpeg" alt="..." />
-                        </a>
-                        <div class="portfolio-caption">
-                            <div class="portfolio-caption-heading">50 Mbps</div>
-                            <div class="portfolio-caption-subheading text-muted">Rp. 250.000/bulan</div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4 col-sm-6 mb-4">
-                    <!-- Portfolio item 3-->
-                    <div class="portfolio-item">
-                        <a class="portfolio-link" data-bs-toggle="modal" href="../paket/langganan.php?paket=100 Mbps">
-                            <div class="portfolio-hover">
-                                <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="assets/img/portfolio/wifi.jpeg" alt="..." />
-                        </a>
-                        <div class="portfolio-caption">
-                            <div class="portfolio-caption-heading">100 Mbps</div>
-                            <div class="portfolio-caption-subheading text-muted">Rp. 350.000/bulan</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
-                    <!-- Portfolio item 4-->
-                    <div class="portfolio-item">
-                        <a class="portfolio-link" data-bs-toggle="modal" href="../paket/langganan.php?paket=73 Channel">
-                            <div class="portfolio-hover">
-                                <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="assets/img/portfolio/parabola.jpg" alt="..." />
-                        </a>
-                        <div class="portfolio-caption">
-                            <div class="portfolio-caption-heading">73 Channel + STB Android</div>
-                            <div class="portfolio-caption-subheading text-muted">Rp. 310.000/bulan</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6 mb-4 mb-sm-0">
-                    <!-- Portfolio item 5-->
-                    <div class="portfolio-item">
-                        <a class="portfolio-link" data-bs-toggle="modal" href="../paket/langganan.php?paket=75 Channel">
-                            <div class="portfolio-hover">
-                                <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="assets/img/portfolio/parabola.jpg" alt="..." />
-                        </a>
-                        <div class="portfolio-caption">
-                            <div class="portfolio-caption-heading">75 Channel + STB Android</div>
-                            <div class="portfolio-caption-subheading text-muted">Rp. 385.000/bulan</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <!-- Portfolio item 6-->
-                    <div class="portfolio-item">
-                        <a class="portfolio-link" data-bs-toggle="modal" href="../paket/langganan.php?paket=80 Channel">
-                            <div class="portfolio-hover">
-                                <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="assets/img/portfolio/parabola.jpg" alt="..." />
-                        </a>
-                        <div class="portfolio-caption">
-                            <div class="portfolio-caption-heading">80 Channel + STB Android</div>
-                            <div class="portfolio-caption-subheading text-muted">Rp. 410.000/bulan</div>
-                        </div>
-                    </div>
-                </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </section>
