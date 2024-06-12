@@ -1,3 +1,23 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['data'])) {
+    header('Location: ../home/index.php');
+    exit();
+}
+
+include "../koneksi/koneksi.php";
+$sql = "SELECT * FROM layanan";
+$query = $koneksi->query($sql);
+$datas = [];
+
+if ($query->num_rows > 0) {
+    while ($row = $query->fetch_assoc()) {
+        $datas[] = $row;
+    }
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <?php session_start(); ?>

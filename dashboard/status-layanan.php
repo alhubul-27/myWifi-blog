@@ -61,12 +61,6 @@ if ($query->num_rows > 0) {
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link" href="index.php">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
             <li class="nav-item">
                 <a class="nav-link" href="admin.php">
                     <i class="bi bi-person-fill"></i>
@@ -157,14 +151,14 @@ if ($query->num_rows > 0) {
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Ulasan</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Status Layanan</h1>
                     </div>
                     <main>
                         <div class="container-fluid px-4 mt-4">
                             <div class="card mb-4">
                                 <div class="card-header">
                                     <i class="fas fa-table me-1"></i>
-                                    Data Ulasan
+                                    Data Status Layanan
                                 </div>
                                 <div class="card-body">
                                     <table class="table table-dark table-striped-columns">

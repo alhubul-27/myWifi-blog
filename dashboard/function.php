@@ -243,7 +243,7 @@ if (isset($_POST['download'])) {
         exit;
     } else {
         // Jika file tidak ditemukan, beri pesan error
-        echo 'File not found.';
+        echo 'File not found.'.'<img src="'.$file.'"></img>';
     }
 }
 

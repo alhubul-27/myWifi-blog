@@ -60,12 +60,6 @@ if ($query->num_rows > 0) {
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link" href="index.php">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
             <li class="nav-item">
                 <a class="nav-link" href="admin.php">
                     <i class="bi bi-person-fill"></i>

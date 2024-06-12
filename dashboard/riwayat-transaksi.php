@@ -63,13 +63,6 @@ if ($query->num_rows > 0) {
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link" href="index.php">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
             <li class="nav-item">
                 <a class="nav-link" href="admin.php">
                     <i class="bi bi-person-fill"></i>
@@ -196,7 +189,7 @@ if ($query->num_rows > 0) {
                                                     <td scope="col"><?= $data['kota'] ?></td>
                                                     <td scope="col"><?= $data['provinsi'] ?></td>
                                                     <td scope="col"><?= $data['tanggal_pembayaran'] ?></td>
-                                                    <td scope="col"><?= "Rp" . number_format($data['jumlah'], 0, ',', '.'); ?></td>
+                                                    <td scope="col"><?= "Rp" . number_format($data['harga'], 0, ',', '.'); ?></td>
                                                     <td scope="col"><?= $data['status'] ?></td>
                                                     <td>
                                                         <a href="" class="text-decoration-none btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal<?= $data['id_pembayaran']; ?>">

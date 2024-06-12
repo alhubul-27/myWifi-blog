@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 session_start();
 include "../koneksi/koneksi.php";
@@ -45,13 +45,12 @@ if (isset($_POST['upload'])) {
         $file_type = $_FILES['image']['type'];
         $file_size = $_FILES['image']['size'];
 
-        $file_extension = pathinfo($file_name, PATHINFO_EXTENSION);
 
         $target_directory = "../assets/";
 
         if (in_array($file_type, $allowed_mime_types)) {
             if ($file_size <= (2 * 1024 * 1024)) {
-                $target_file = $target_directory . $file_name . '.' . $file_extension; 
+                $target_file = $target_directory . $file_name; 
                 if (move_uploaded_file($file_tmp, $target_file)) { 
                     echo "berhasil";
                     header('Location: index.php');
